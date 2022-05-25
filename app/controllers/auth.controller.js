@@ -29,8 +29,8 @@ exports.signup = (req, res) => {
           });
         });
       } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
+        // user role = 2, default user role
+        user.setRoles([2]).then(() => {
           res.send({ message: "User registered successfully!" });
         });
       }
@@ -66,6 +66,8 @@ exports.signin = (req, res) => {
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
+
+      //Add current_login query here
 
       var authorities = [];
       user.getRoles().then(roles => {
